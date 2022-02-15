@@ -1,0 +1,9 @@
+﻿  renderer.cpp
+C:\Users\Ryan\Desktop\Chess\Chess\renderer.cpp(103,42): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+C:\Users\Ryan\Desktop\Chess\Chess\renderer.cpp(103,34): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+  Generating code
+  1 of 18 functions ( 5.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Chess.vcxproj -> C:\Users\Ryan\Desktop\Chess\x64\Release\Chess.exe
