@@ -35,7 +35,6 @@ public:
 	~Pawn() {};
 
 private:
-	int color = 0;
 	bool alive = true;
 
 	char getPiece()
@@ -53,4 +52,124 @@ private:
 		return alive;
 	}
 
+};
+
+class King : public Piece
+{
+public:
+	King() {};
+	~King() {};
+
+private:
+	bool alive = true;
+
+	char getPiece()
+	{
+		return 'K';
+	}
+	bool isValidMove(int x, int y)
+	{
+		return true;
+	}
+
+	bool isAlive()
+	{
+		return alive;
+	}
+};
+
+class Queen : public Piece
+{
+public:
+	Queen() {};
+	~Queen() {};
+
+private:
+	bool alive = true;
+
+	char getPiece()
+	{
+		return 'Q';
+	}
+	bool isValidMove(int x, int y)
+	{
+		return true;
+	}
+
+	bool isAlive()
+	{
+		return alive;
+	}
+};
+
+class Knight : public Piece
+{
+public:
+	Knight() {};
+	~Knight() {};
+
+private:
+	bool alive = true;
+
+	char getPiece()
+	{
+		return 'N';
+	}
+	bool isValidMove(int x, int y)
+	{
+		return true;
+	}
+
+	bool isAlive()
+	{
+		return alive;
+	}
+};
+
+class Rook : public Piece
+{
+public:
+	Rook() {};
+	~Rook() {};
+
+private:
+	bool alive = true;
+
+	char getPiece()
+	{
+		return 'R';
+	}
+	bool isValidMove(int x, int y)
+	{
+		return true;
+	}
+
+	bool isAlive()
+	{
+		return alive;
+	}
+};
+
+class Bishop : public Piece
+{
+public:
+	Bishop() {};
+	~Bishop() {};
+
+private:
+	bool alive = true;
+
+	char getPiece()
+	{
+		return 'B';
+	}
+	bool isValidMove(int x, int y)
+	{
+		return true;
+	}
+
+	bool isAlive()
+	{
+		return alive;
+	}
 };

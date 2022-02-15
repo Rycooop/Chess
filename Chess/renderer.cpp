@@ -10,6 +10,16 @@ ID3DXFont* headerFont;
 ID3DXFont* playerFont;
 ID3DXFont* pieceFont;
 
+TextureItems whiteKing;
+TextureItems blackKing;
+TextureItems whiteQueen;
+TextureItems blackQueen;
+TextureItems whiteKnight;
+TextureItems blackKnight;
+TextureItems whiteBishop;
+TextureItems blackBishop;
+TextureItems whiteRook;
+TextureItems blackRook;
 TextureItems blackPawn;
 TextureItems whitePawn;
 
@@ -42,6 +52,36 @@ BOOL Renderer::initD3D(HWND hwnd)
 	D3DXCreateTextureFromFileInMemoryEx(d3ddev, &wPawnImage, sizeof(wPawnImage), 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &whitePawn.imagetex);
 	D3DXCreateSprite(d3ddev, &whitePawn.sprite);
 
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\wking.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &whiteKing.imagetex);
+	D3DXCreateSprite(d3ddev, &whiteKing.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\bking.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &blackKing.imagetex);
+	D3DXCreateSprite(d3ddev, &blackKing.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\wqueen.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &whiteQueen.imagetex);
+	D3DXCreateSprite(d3ddev, &whiteQueen.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\bqueen.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &blackQueen.imagetex);
+	D3DXCreateSprite(d3ddev, &blackQueen.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\wknight.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &whiteKnight.imagetex);
+	D3DXCreateSprite(d3ddev, &whiteKnight.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\bknight.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &blackKnight.imagetex);
+	D3DXCreateSprite(d3ddev, &blackKnight.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\wbishop.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &whiteBishop.imagetex);
+	D3DXCreateSprite(d3ddev, &whiteBishop.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\bbishop.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &blackBishop.imagetex);
+	D3DXCreateSprite(d3ddev, &blackBishop.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\wrook.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &whiteRook.imagetex);
+	D3DXCreateSprite(d3ddev, &whiteRook.sprite);
+
+	D3DXCreateTextureFromFileEx(d3ddev, L"images\\brook.png", 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &blackRook.imagetex);
+	D3DXCreateSprite(d3ddev, &blackRook .sprite);
+
 	return TRUE;
 }
 
@@ -68,11 +108,47 @@ void Renderer::renderFrame()
 
 			switch (currPiece->getPiece())
 			{
+				case 'K':
+				{
+					if (currPiece->getColor() == 1)
+						Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &blackKing);
+					else Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &whiteKing);
+					break;
+				}
+				case 'Q':
+				{
+					if (currPiece->getColor() == 1)
+						Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &blackQueen);
+					else Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &whiteQueen);
+					break;
+				}
+				case 'N':
+				{
+					if (currPiece->getColor() == 1)
+						Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &blackKnight);
+					else Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &whiteKnight);
+					break;
+				}
+				case 'B':
+				{
+					if (currPiece->getColor() == 1)
+						Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &blackBishop);
+					else Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &whiteBishop);
+					break;
+				}
+				case 'R':
+				{
+					if (currPiece->getColor() == 1)
+						Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &blackRook);
+					else Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &whiteRook);
+					break;
+				}
 				case 'P':
 				{
 					if (currPiece->getColor() == 1)
 						Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &blackPawn);
 					else Renderer::DrawImage(i * 70 + 20, j * 70 + 35, &whitePawn);
+					break;
 				}
 			}
 		}
@@ -94,6 +170,11 @@ void Renderer::drawFilledRect(int x, int y, int w, int h, D3DCOLOR color)
 {
 	D3DRECT rect = { x, y, x + w, y + h };
 	d3ddev->Clear(1, &rect, D3DCLEAR_TARGET, color, 1.0f, 0);
+}
+
+void Renderer::drawX(int x, int y, int size, D3DCOLOR color)
+{
+
 }
 
 void Renderer::DrawTexture(int x, int y, LPDIRECT3DTEXTURE9 dTexture, LPD3DXSPRITE sprite)
