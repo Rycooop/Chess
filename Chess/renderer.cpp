@@ -7,6 +7,7 @@ LPDIRECT3DDEVICE9	d3ddev;
 colors				Colors;
 
 ID3DXFont* headerFont;
+ID3DXFont* versionFont;
 ID3DXFont* playerFont;
 ID3DXFont* pieceFont;
 
@@ -177,6 +178,17 @@ void Renderer::drawX(int x, int y, int size, D3DCOLOR color)
 
 }
 
+void Renderer::drawVersionText(LPCSTR text)
+{
+	if (!versionFont)
+		D3DXCreateFont(d3ddev, 12, 6, FW_NORMAL, -1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Arial", &versionFont);
+
+	static RECT rect;
+	SetRect(&rect, 10, 8, 10, 8);
+
+	versionFont->DrawTextA(NULL, text, -1, &rect, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 50, 255, 50));
+}
+
 void Renderer::DrawTexture(int x, int y, LPDIRECT3DTEXTURE9 dTexture, LPD3DXSPRITE sprite)
 {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
@@ -213,6 +225,7 @@ void Renderer::drawMenuBar()
 	}
 
 	Renderer::drawFilledRect(0, 0, 560, 25, D3DCOLOR_ARGB(255, 88, 126, 196));
+	Renderer::drawVersionText("Version 1.0");
 
 	Mouse.x -= gameX;
 	Mouse.y -= gameY;
