@@ -3,5 +3,5 @@ my attempt at an OOP approach to chess with Dx9. Plan on adding an AI to play ag
 
 Current State:
 
-![Capture](https://user-images.githubusercontent.com/45408021/154015160-aadf37c6-1eda-4764-b54c-7280c788a487.PNG)
 
+<img width="659" alt="Capture" src="https://user-images.githubusercontent.com/45408021/154308158-b3cd8668-09f3-472d-adc0-fec329bd53f1.PNG">
