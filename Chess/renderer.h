@@ -21,11 +21,15 @@ namespace Renderer
 	void cleanD3D();
 
 	void drawFilledRect(int x, int y, int w, int h, D3DCOLOR color);
+	void drawLine(int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color);
 	void drawX(int x, int y, int size, D3DCOLOR color);
+	void drawSelectedBox(int x, int y, D3DCOLOR color);
+	void drawHeaderText(LPCSTR text, int x, int y, D3DCOLOR color);
 	void drawVersionText(LPCSTR text);
 	void DrawTexture(int x, int y, LPDIRECT3DTEXTURE9 dTexture, LPD3DXSPRITE sprite);
 	void DrawImage(int x, int y, TextureItems* textureItems);
 
 	void drawMenuBar();
+	void drawSide();
 
 }

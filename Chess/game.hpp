@@ -4,4 +4,5 @@
 namespace Game
 {
 	BOOL initGame();
+	VOID updateGame();
 }

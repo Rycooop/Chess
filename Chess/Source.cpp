@@ -2,7 +2,8 @@
 
 
 HWND gameHwnd;
-int gameX = 150, gameY = 80, gameWidth = 560, gameHeight = 585;
+bool applicationRunning = true;
+int gameX = 150, gameY = 80, gameWidth = 860, gameHeight = 585;
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -31,9 +32,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR nCmdLine,
 		return 0;
 	}
 
+	std::thread gameThread(Game::updateGame);
+	gameThread.detach();
+
 	MSG msg;
 
-	while (true)
+	while (applicationRunning)
 	{
 		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
@@ -43,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR nCmdLine,
 			if (msg.message == WM_QUIT)
 				return 0;
 		}
-		MoveWindow(gameHwnd, gameX, gameY, 560, 585, true);
+		MoveWindow(gameHwnd, gameX, gameY, gameWidth, gameHeight, true);
 
 		Renderer::renderFrame();
 	}

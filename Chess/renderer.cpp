@@ -24,7 +24,6 @@ TextureItems blackRook;
 TextureItems blackPawn;
 TextureItems whitePawn;
 
-ID3DXLine* LineL;
 D3DCOLOR tileColor = D3DCOLOR_ARGB(255, 10, 10, 10);
 
 BOOL Renderer::initD3D(HWND hwnd)
@@ -45,7 +44,6 @@ BOOL Renderer::initD3D(HWND hwnd)
 	if (devCreated != S_OK)
 		return FALSE;
 
-	D3DXCreateLine(d3ddev, &LineL);
 
 	D3DXCreateTextureFromFileInMemoryEx(d3ddev, &bPawnImage, sizeof(bPawnImage), 30, 50, -1, D3DUSAGE_RENDERTARGET, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL,  &blackPawn.imagetex);
 	D3DXCreateSprite(d3ddev, &blackPawn.sprite);
@@ -152,9 +150,15 @@ void Renderer::renderFrame()
 					break;
 				}
 			}
+
+			if (currPiece->isCurr)
+			{
+				Renderer::drawSelectedBox(i * 70, j * 70 + 25, D3DCOLOR_ARGB(255, 240, 240, 240));
+			}
 		}
 	}
 
+	Renderer::drawSide();
 	Renderer::drawMenuBar();
 
 	d3ddev->EndScene();
@@ -173,9 +177,42 @@ void Renderer::drawFilledRect(int x, int y, int w, int h, D3DCOLOR color)
 	d3ddev->Clear(1, &rect, D3DCLEAR_TARGET, color, 1.0f, 0);
 }
 
+void Renderer::drawLine(int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color)
+{
+	ID3DXLine* LineL;
+	D3DXCreateLine(d3ddev, &LineL);
+
+	D3DXVECTOR2 line[2];
+	line[0] = D3DXVECTOR2(x1, y1);
+	line[1] = D3DXVECTOR2(x2, y2);
+	LineL->SetWidth(thickness);
+	LineL->Draw(line, 2, color);
+	LineL->Release();
+}
+
 void Renderer::drawX(int x, int y, int size, D3DCOLOR color)
 {
+	Renderer::drawLine(x - (size / 2), y - (size / 2), x + (size / 2), y + (size / 2), 3, color);
+	Renderer::drawLine(x - (size / 2), y + (size / 2), x + (size / 2), y - (size / 2), 3, color);
+}
 
+void Renderer::drawSelectedBox(int x, int y, D3DCOLOR color)
+{
+	Renderer::drawFilledRect(x, y, 70, 3, color);
+	Renderer::drawFilledRect(x, y, 3, 70, color);
+	Renderer::drawFilledRect(x + 67, y, 3, 70, color);
+	Renderer::drawFilledRect(x, y + 67, 70, 3, color);
+}
+
+void Renderer::drawHeaderText(LPCSTR text, int x, int y, D3DCOLOR color)
+{
+	if (!headerFont)
+		D3DXCreateFont(d3ddev, 30, 0, FW_BOLD, -1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Oswald", &headerFont);
+
+	static RECT rect;
+	SetRect(&rect, x, y, x, y);
+
+	headerFont->DrawTextA(NULL, text, -1, &rect, DT_CENTER | DT_NOCLIP, color);
 }
 
 void Renderer::drawVersionText(LPCSTR text)
@@ -217,17 +254,26 @@ void Renderer::drawMenuBar()
 
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
-		if (Mouse.x >= gameX && Mouse.x <= gameX + 560 && Mouse.y >= gameY && Mouse.y <= gameY + 25)
+		if (Mouse.x >= gameX && Mouse.x <= gameX + gameWidth - 20 && Mouse.y >= gameY && Mouse.y <= gameY + 25)
 		{
 			gameX = Mouse.x - 280;
 			gameY = Mouse.y - 12;
 		}
+		else if (Mouse.x >= gameX + gameWidth - 20 && Mouse.x <= gameX + gameWidth && Mouse.y >= gameY && Mouse.y <= gameY + 20)
+			applicationRunning = false;
 	}
 
-	Renderer::drawFilledRect(0, 0, 560, 25, D3DCOLOR_ARGB(255, 88, 126, 196));
+	Renderer::drawFilledRect(0, 0, gameWidth, 25, D3DCOLOR_ARGB(255, 88, 126, 196));
+	Renderer::drawX(gameWidth - 15, 12, 16, D3DCOLOR_ARGB(255, 200, 24, 52));
 	Renderer::drawVersionText("Version 1.0");
 
 	Mouse.x -= gameX;
 	Mouse.y -= gameY;
 	Renderer::drawFilledRect(Mouse.x, Mouse.y, 10, 10, D3DCOLOR_ARGB(255, 255, 0, 0));
+}
+
+void Renderer::drawSide()
+{
+	Renderer::drawHeaderText("Game Settings", 710, 40, D3DCOLOR_ARGB(255, 35, 35, 35));
+	Renderer::drawLine(565, 90, 855, 90, 2, D3DCOLOR_ARGB(200, 30, 30, 30));
 }

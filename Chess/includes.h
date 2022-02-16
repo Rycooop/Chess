@@ -1,5 +1,6 @@
 #include <iostream>
 #include <Windows.h>
+#include <thread>
 #include <d3dx9.h>
 #include <d3dx9.h>
 
@@ -19,4 +20,5 @@ extern colors Colors;
 extern Piece* GameBoard[8][8];
 
 extern HWND gameHwnd;
+extern bool applicationRunning;
 extern int gameX, gameY, gameWidth, gameHeight;
