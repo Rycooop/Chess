@@ -1,17 +1,12 @@
-﻿  Source.cpp
+﻿  ai.cpp
+C:\Users\rycoo\Desktop\chess-main\Chess\ai.cpp(31,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\rycoo\Desktop\chess-main\Chess\ai.cpp(32,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   game.cpp
-  renderer.cpp
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(205,28): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(205,24): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(206,28): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(206,24): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(207,18): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(260,42): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
-C:\Users\rycoo\Desktop\chess-main\Chess\renderer.cpp(260,34): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+C:\Users\rycoo\Desktop\chess-main\Chess\game.cpp(97,18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\rycoo\Desktop\chess-main\Chess\game.cpp(98,18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Generating code
-C:\Users\rycoo\Desktop\chess-main\Chess\pieces.hpp(95): warning C4715: 'Pawn::isValidMove': not all control paths return a value
-  1 of 82 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+  0 of 84 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Chess.vcxproj -> C:\Users\rycoo\Desktop\chess-main\x64\Release\Chess.exe

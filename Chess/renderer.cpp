@@ -292,11 +292,7 @@ void Renderer::drawMenuBar()
 
 	Renderer::drawFilledRect(0, 0, gameWidth, 25, D3DCOLOR_ARGB(255, 88, 126, 196));
 	Renderer::drawX(gameWidth - 15, 12, 16, D3DCOLOR_ARGB(255, 200, 24, 52));
-	Renderer::drawVersionText("Version 1.0");
-
-	Mouse.x -= gameX;
-	Mouse.y -= gameY;
-	Renderer::drawFilledRect(Mouse.x, Mouse.y, 10, 10, D3DCOLOR_ARGB(255, 255, 0, 0));
+	Renderer::drawVersionText("Version 1.1");
 }
 
 void Renderer::drawSide()

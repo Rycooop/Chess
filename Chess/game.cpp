@@ -2,7 +2,7 @@
 
 
 Piece* GameBoard[8][8];
-
+bool whosTurn = true, aiActive = true;
 
 BOOL Game::initGame()
 {
@@ -74,7 +74,7 @@ VOID Game::updateGame()
 {
 	Piece* currPiece = 0;
 	int nextX, nextY;
-	bool isMove = false;
+	bool isMove = false, isTurn = true;
 
 	while (true)
 	{
@@ -83,49 +83,143 @@ VOID Game::updateGame()
 		Mouse.x -= gameX;
 		Mouse.y -= gameY + 25;
 
-		if ((GetAsyncKeyState(VK_LBUTTON) & 1) && !isMove)
+
+		//AI ON
+		if (aiActive)
 		{
-			if (Mouse.x >= 0 && Mouse.x <= 560 && Mouse.y >= 0 && Mouse.y <= 560)
+			if (!isTurn && !isMove)
 			{
-				if (currPiece != 0 && (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] == 0 || currPiece->getColor() != GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)]->getColor()))
+				currPiece = Ai::getRandomPiece();
+				Vec2 move;
+				if (currPiece)
 				{
-					nextX = (int)(Mouse.x / 70);
-					nextY = (int)(Mouse.y / 70);
-					isMove = true;
+					Ai::getBestMove(currPiece, move);
+					nextX = move.x;
+					nextY = move.y;
+					isMove = !isMove;
 				}
-				else
+			}
+
+			if ((GetAsyncKeyState(VK_LBUTTON) & 1) && !isMove && isTurn)
+			{
+
+				if (Mouse.x >= 0 && Mouse.x <= 560 && Mouse.y >= 0 && Mouse.y <= 560)
 				{
+					if (currPiece != 0 && (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] == 0 || currPiece->getColor() != GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)]->getColor()))
+					{
+						nextX = (int)(Mouse.x / 70);
+						nextY = (int)(Mouse.y / 70);
+						isMove = true;
+					}
+					else
+					{
+						if (currPiece)
+							currPiece->isCurr = false;
+
+						if (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] != 0)
+						{
+							currPiece = GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)];
+							currPiece->isCurr = true;
+						}
+					}
+				}
+			}
+			else if (isMove)
+			{
+				if (currPiece != 0)
+				{
+					if (whosTurn && currPiece->getColor() != 0)
+					{
+						currPiece->isCurr = false;
+						currPiece = 0;
+						isMove = false;
+					}
+					else if (!whosTurn && currPiece->getColor() != 1)
+					{
+						currPiece->isCurr = false;
+						currPiece = 0;
+						isMove = false;
+					}
+					else if (currPiece->isValidMove(GameBoard, nextX, nextY))
+					{
+						currPiece->numMoves++;
+						GameBoard[nextX][nextY] = GameBoard[currPiece->currX][currPiece->currY];
+						GameBoard[currPiece->currX][currPiece->currY] = 0;
+						currPiece->currX = nextX;
+						currPiece->currY = nextY;
+						whosTurn = !whosTurn;
+						isTurn = !isTurn;
+					}
 					if (currPiece)
 						currPiece->isCurr = false;
 
-					if (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] != 0)
-					{
-						currPiece = GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)];
-						currPiece->isCurr = true;
-					}
+					currPiece = 0;
+					isMove = false;
+
 				}
 			}
 		}
 
-		else if (isMove)
+		//AI NOT ON
+		else if (!aiActive)
 		{
-			if (currPiece != 0)
+			if ((GetAsyncKeyState(VK_LBUTTON) & 1) && !isMove)
 			{
 
-				if (currPiece->isValidMove(GameBoard, nextX, nextY))
+				if (Mouse.x >= 0 && Mouse.x <= 560 && Mouse.y >= 0 && Mouse.y <= 560)
 				{
-					currPiece->numMoves++;
-					GameBoard[nextX][nextY] = GameBoard[currPiece->currX][currPiece->currY];
-					GameBoard[currPiece->currX][currPiece->currY] = 0;
-					currPiece->currX = nextX;
-					currPiece->currY = nextY;
+					if (currPiece != 0 && (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] == 0 || currPiece->getColor() != GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)]->getColor()))
+					{
+						nextX = (int)(Mouse.x / 70);
+						nextY = (int)(Mouse.y / 70);
+						isMove = true;
+					}
+					else
+					{
+						if (currPiece)
+							currPiece->isCurr = false;
+
+						if (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] != 0)
+						{
+							currPiece = GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)];
+							currPiece->isCurr = true;
+						}
+					}
 				}
-				if (currPiece)
-					currPiece->isCurr = false;
+			}
 
-				currPiece = 0;
-				isMove = false;
+			else if (isMove)
+			{
+				if (currPiece != 0)
+				{
+					if (whosTurn && currPiece->getColor() != 0)
+					{
+						currPiece->isCurr = false;
+						currPiece = 0;
+						isMove = false;
+					}
+					else if (!whosTurn && currPiece->getColor() != 1)
+					{
+						currPiece->isCurr = false;
+						currPiece = 0;
+						isMove = false;
+					}
+					else if (currPiece->isValidMove(GameBoard, nextX, nextY))
+					{
+						currPiece->numMoves++;
+						GameBoard[nextX][nextY] = GameBoard[currPiece->currX][currPiece->currY];
+						GameBoard[currPiece->currX][currPiece->currY] = 0;
+						currPiece->currX = nextX;
+						currPiece->currY = nextY;
+						whosTurn = !whosTurn;
+					}
+					if (currPiece)
+						currPiece->isCurr = false;
 
+					currPiece = 0;
+					isMove = false;
+
+				}
 			}
 		}
 	}

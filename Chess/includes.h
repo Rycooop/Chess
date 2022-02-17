@@ -11,6 +11,7 @@
 #include "game.hpp"
 #include "pieces.hpp"
 #include "player.hpp"
+#include "ai.h"
 
 
 extern LPDIRECT3D9			d3d;
