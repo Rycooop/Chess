@@ -204,6 +204,14 @@ void Renderer::drawSelectedBox(int x, int y, D3DCOLOR color)
 	Renderer::drawFilledRect(x, y + 67, 70, 3, color);
 }
 
+void Renderer::drawPossibleBox(int x, int y, D3DCOLOR color)
+{
+	Renderer::drawFilledRect(x, y, 70, 2, color);
+	Renderer::drawFilledRect(x, y, 2, 70, color);
+	Renderer::drawFilledRect(x + 68, y, 2, 70, color);
+	Renderer::drawFilledRect(x, y + 68, 70, 2, color);
+}
+
 void Renderer::drawHeaderText(LPCSTR text, int x, int y, D3DCOLOR color)
 {
 	if (!headerFont)

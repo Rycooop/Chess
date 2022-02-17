@@ -87,7 +87,7 @@ VOID Game::updateGame()
 		{
 			if (Mouse.x >= 0 && Mouse.x <= 560 && Mouse.y >= 0 && Mouse.y <= 560)
 			{
-				if (currPiece != 0 && GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] == 0)
+				if (currPiece != 0 && (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] == 0 || currPiece->getColor() != GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)]->getColor()))
 				{
 					nextX = (int)(Mouse.x / 70);
 					nextY = (int)(Mouse.y / 70);
@@ -98,8 +98,11 @@ VOID Game::updateGame()
 					if (currPiece)
 						currPiece->isCurr = false;
 
-					currPiece = GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)];
-					currPiece->isCurr = true;
+					if (GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)] != 0)
+					{
+						currPiece = GameBoard[(int)(Mouse.x / 70)][(int)(Mouse.y / 70)];
+						currPiece->isCurr = true;
+					}
 				}
 			}
 		}
@@ -115,10 +118,13 @@ VOID Game::updateGame()
 					GameBoard[currPiece->currX][currPiece->currY] = 0;
 					currPiece->currX = nextX;
 					currPiece->currY = nextY;
-					currPiece->isCurr = false;
 				}
+				if (currPiece)
+					currPiece->isCurr = false;
+
 				currPiece = 0;
 				isMove = false;
+
 			}
 		}
 	}
