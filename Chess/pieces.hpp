@@ -49,50 +49,44 @@ private:
 
 	bool isValidMove(Piece* GameBoard[8][8], int x, int y)
 	{
-		if (this->getColor() == 0)
+		if (GameBoard[x][y] != 0 && this->getColor() == GameBoard[x][y]->getColor())
+			return false;
+		else if (this->getColor() == 0)
 		{
-			if (numMoves == 0 && x == currX && ((y == currY - 1) || (y == currY - 2)) && GameBoard[x][y] == 0)
+			if (numMoves == 0 && x == currX && ((y == currY - 1) || (y == currY - 2)) && GameBoard[x][y] == 0 && GameBoard[x][this->currY - 1] == 0)
 			{
-				numMoves++;
 				return true;
 			}
-			else if (numMoves && x == currX && y == currY - 1 && GameBoard[x][y] == 0)
+			else if (x == currX && y == currY - 1 && GameBoard[x][y] == 0)
 			{
-				numMoves++;
 				return true;
 			}
-			else if (numMoves && x == currX - 1 && y == currY - 1 && GameBoard[x][y] != 0)
+			else if (x == currX - 1 && y == currY - 1 && GameBoard[x][y] != 0)
 			{
-				numMoves++;
 				return true;
 			}
-			else if (numMoves && x == currX + 1 && y == currY - 1 && GameBoard[x][y] != 0)
+			else if (x == currX + 1 && y == currY - 1 && GameBoard[x][y] != 0)
 			{
-				numMoves++;
 				return true;
 			}
 			else return false;
 		}
 		else if (this->getColor() == 1)
 		{
-			if (numMoves == 0 && x == currX && ((y == currY + 1) || (y == currY + 2)) && GameBoard[currX][y] == 0)
+			if (numMoves == 0 && x == currX && ((y == currY + 1) || (y == currY + 2)) && GameBoard[x][y] == 0 && GameBoard[x][this->currY + 1] == 0)
 			{
-				numMoves++;
 				return true;
 			}
-			else if (numMoves && x == currX && y == currY + 1 && GameBoard[currX][y] == 0)
+			else if (x == currX && y == currY + 1 && GameBoard[x][y] == 0)
 			{
-				numMoves++;
 				return true;
 			}
-			else if (numMoves && x == currX - 1 && y == currY + 1 && GameBoard[x][y] != 0)
+			else if (x == currX - 1 && y == currY + 1 && GameBoard[x][y] != 0)
 			{
-				numMoves++;
 				return true;
 			}
-			else if (numMoves && x == currX + 1 && y == currY + 1 && GameBoard[x][y] != 0)
+			else if (x == currX + 1 && y == currY + 1 && GameBoard[x][y] != 0)
 			{
-				numMoves++;
 				return true;
 			}
 			else return false;
@@ -122,7 +116,9 @@ private:
 	}
 	bool isValidMove(Piece* GameBoard[8][8], int x, int y)
 	{
-		if ((this->currX == x - 1 || this->currX == x || this->currX == x + 1) && (this->currY == y - 1 || this->currY == y || this->currY == y + 1) && (GameBoard[x][y] == 0 || GameBoard[x][y]->getColor() != this->getColor()))
+		if (GameBoard[x][y] != 0 && this->getColor() == GameBoard[x][y]->getColor())
+			return false;
+		else if ((this->currX == x - 1 || this->currX == x || this->currX == x + 1) && (this->currY == y - 1 || this->currY == y || this->currY == y + 1) && (GameBoard[x][y] == 0 || GameBoard[x][y]->getColor() != this->getColor()))
 			return true;
 		else return false;
 	}
@@ -148,8 +144,10 @@ private:
 	}
 	bool isValidMove(Piece* GameBoard[8][8], int x, int y)
 	{
+		if (GameBoard[x][y] != 0 && this->getColor() == GameBoard[x][y]->getColor())
+			return false;
 		//Just move on Y-axis
-		if (this->currX == x)
+		else if (this->currX == x)
 		{
 			if (this->currY < y)
 			{
@@ -268,9 +266,11 @@ private:
 	}
 	bool isValidMove(Piece* GameBoard[8][8], int x, int y)
 	{	
-		if ((this->currX == x - 1 || this->currX == x + 1) && (this->currY == y + 2 || this->currY == y - 2) && GameBoard[x][y] == 0)
+		if (GameBoard[x][y] != 0 && this->getColor() == GameBoard[x][y]->getColor())
+			return false;
+		else if ((this->currX == x - 1 || this->currX == x + 1) && (this->currY == y + 2 || this->currY == y - 2))
 			return true;
-		else if ((this->currX == x - 2 || this->currX == x + 2) && (this->currY == y + 1 || this->currY == y - 1) && GameBoard[x][y] == 0)
+		else if ((this->currX == x - 2 || this->currX == x + 2) && (this->currY == y + 1 || this->currY == y - 1))
 			return true;
 		else return false;
 	}
@@ -296,7 +296,9 @@ private:
 	}
 	bool isValidMove(Piece* GameBoard[8][8], int x, int y)
 	{
-		if (this->currX == x)
+		if (GameBoard[x][y] != 0 && this->getColor() == GameBoard[x][y]->getColor())
+			return false;
+		else if (this->currX == x)
 		{
 			if (this->currY < y)
 			{
@@ -364,7 +366,9 @@ private:
 	}
 	bool isValidMove(Piece* GameBoard[8][8], int x, int y)
 	{
-		if (x < currX && y < currY)
+		if (GameBoard[x][y] != 0 && this->getColor() == GameBoard[x][y]->getColor())
+			return false;
+		else if (x < currX && y < currY)
 		{
 			if (this->currX - x != this->currY - y)
 				return false;

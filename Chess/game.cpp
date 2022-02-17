@@ -114,6 +114,7 @@ VOID Game::updateGame()
 
 				if (currPiece->isValidMove(GameBoard, nextX, nextY))
 				{
+					currPiece->numMoves++;
 					GameBoard[nextX][nextY] = GameBoard[currPiece->currX][currPiece->currY];
 					GameBoard[currPiece->currX][currPiece->currY] = 0;
 					currPiece->currX = nextX;

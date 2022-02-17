@@ -91,6 +91,7 @@ void Renderer::renderFrame()
 
 	Piece* currPiece;
 
+	//Draw board first so everything is rendered over it
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -99,7 +100,14 @@ void Renderer::renderFrame()
 				tileColor = D3DCOLOR_ARGB(255, 196, 161, 98);
 			Renderer::drawFilledRect(i * 70, j * 70 + 25, 70, 70, tileColor);
 			tileColor = D3DCOLOR_ARGB(255, 10, 10, 10);
+		}
+	}
 
+	//Draw individual pieces and get current state of game
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
 			currPiece = GameBoard[i][j];
 
 			if (!currPiece)
@@ -154,6 +162,17 @@ void Renderer::renderFrame()
 			if (currPiece->isCurr)
 			{
 				Renderer::drawSelectedBox(i * 70, j * 70 + 25, D3DCOLOR_ARGB(255, 240, 240, 240));
+
+				for (int h = 0; h < 8; h++)
+				{
+					for (int m = 0; m < 8; m++)
+					{
+						if (currPiece->isValidMove(GameBoard, h, m))
+						{
+							Renderer::drawPossibleBox(h * 70, m * 70 + 25, D3DCOLOR_ARGB(255, 23, 240, 42));
+						}
+					}
+				}
 			}
 		}
 	}
